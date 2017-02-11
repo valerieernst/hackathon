@@ -1,8 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './app.jsx';
+import { browserHistory, Router, Route, Link } from 'react-router';
+
+import App from './app/app.jsx';
+import Investors from './Investors/Investors.jsx';
 
 ReactDOM.render(
-  <h1>Hello, world!</h1>,
+  <Router history={browserHistory}>
+    <Route path="/" component={App}>
+      <Route path="investors" component={Investors} />
+    </Route>
+  </Router>,
   document.getElementById('root'),
 );
