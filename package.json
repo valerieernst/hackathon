@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/valerieernst/hackathon/issues"
   },
-  "homepage": "https://github.com/CharlottesWebpack/hackathon#readme"
+  "homepage": "https://github.com/CharlottesWebpack/hackathon#readme",
+  "dependencies": {
+    "body-parser": "^1.16.1",
+    "express": "^4.14.1"
+  }
 }
