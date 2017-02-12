@@ -18,6 +18,7 @@ export default class Qualify extends Component {
     this.submitResults = this.submitResults.bind(this);
     this.verifyHome = this.verifyHome.bind(this);
     this.changeHelpTerm = this.changeHelpTerm.bind(this);
+    this.submitHome = this.submitHome.bind(this);
 
     this.state = {
       ownHome: '',
@@ -143,6 +144,7 @@ export default class Qualify extends Component {
   }
 
   submitHome () {
+    //insert into database
     
   }
 
