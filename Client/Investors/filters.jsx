@@ -57,7 +57,7 @@ class Filters extends Component {
           </div>
         </Row>
         <Row>
-          <div>
+          <div className="filter">
             <p>Term of Investment, months</p>
             <FormGroup>
               <Checkbox onClick={() => { this.updateArrays('term', 6); }} value={6} inline>
@@ -98,7 +98,7 @@ class Filters extends Component {
             />
           </div>
         </Row>
-        <Row className="state-select">
+        <Row className="filter">
           <FormGroup controlId="formControlsSelectMultiple">
             <Col xs={6} sm={6} md={6}>
               <ControlLabel>Select Locations:</ControlLabel>
@@ -162,8 +162,12 @@ class Filters extends Component {
           </FormGroup>
         </Row>
         <Row>
-          <Button type="submit" onClick={() => { this.props.filterProperties(this.state); }}> Apply Filters </Button>
-          <Button type="submit" onClick={() => { this.resetFilters(); }}> Reset </Button>
+          <Col xs={6} sm={6}>
+            <Button type="submit" onClick={() => { this.props.filterProperties(this.state); }}> Apply Filters </Button>
+          </Col>
+          <Col xs={6} sm={6}>
+            <Button type="submit" onClick={() => { this.resetFilters(); }}> Reset </Button>
+          </Col>
         </Row>
       </div>
     );
