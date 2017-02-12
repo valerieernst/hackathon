@@ -20,6 +20,7 @@ class Investors extends Component {
   getPropertyList() {
     axios.get('/getPropertyList')
     .then((res) => {
+      console.log('data from server', res.data);
       this.setState({
         houseData: res.data,
       });
@@ -41,7 +42,7 @@ class Investors extends Component {
     return (
       <Grid>
         <Row>
-          <Col xsHidden sm={3} md={4} >
+          <Col xsHidden sm={3} md={3} >
             <Filters filterProperties={this.filterProperties} houseData={this.state.houseData} />
           </Col>
           <Col xs={12} smHidden mdHidden lgHidden>
@@ -54,7 +55,7 @@ class Investors extends Component {
               </Row>
             </Panel>
           </Col>
-          <Col xs={12} sm={9} md={8}>
+          <Col xs={12} sm={9} md={9}>
             <PropertyList houseData={this.state.houseData} />
           </Col>
         </Row>

@@ -1,15 +1,31 @@
 import React from 'react';
 import { Range } from 'rc-slider';
-import { Row, Col, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+import { Row, Col, FormGroup, FormControl, ControlLabel, Checkbox } from 'react-bootstrap';
 import 'rc-slider/assets/index.css';
 
 
-const Filters = () => (
+const Filters = props => (
   <div>
     <Row>
       <div className="slider">
-        <p>Discount, %</p>
+        <p>Return on Investment, %</p>
         <Range min={0} max={100} marks={{ 0: 0, 100: 100 }} defaultValue={[0, 100]} />
+      </div>
+    </Row>
+    <Row>
+      <div>
+        <p>Term of Investment, months</p>
+        <FormGroup>
+          <Checkbox inline>
+            6
+          </Checkbox>
+          <Checkbox inline>
+            12
+          </Checkbox>
+          <Checkbox inline>
+            18
+          </Checkbox>
+        </FormGroup>
       </div>
     </Row>
     <Row>
@@ -24,7 +40,7 @@ const Filters = () => (
         <Range min={200000} max={2000000} marks={{ 200000: '200,000', 2000000: '2,000,000' }} defaultValue={[200000, 2000000]} />
       </div>
     </Row>
-    <Row>
+    <Row className="state-select">
       <FormGroup controlId="formControlsSelectMultiple">
         <Col xs={6} sm={6} md={6}>
           <ControlLabel>Select Locations:</ControlLabel>

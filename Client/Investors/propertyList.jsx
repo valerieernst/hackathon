@@ -2,8 +2,8 @@ import React, { PropTypes } from 'react';
 import { Panel, Grid, Row, Col } from 'react-bootstrap';
 import Property from './property.jsx';
 
-const PropertyList = (props) => {
-  const propertyList = props.houseData.map(({ discount, zipcode, value, id, image, city }) => (
+const PropertyList = ({ houseData }) => {
+  const propertyList = houseData.map(({ discount, zipcode, value, id, image, city, total, monthly, term }) => (
     <Property
       image={image}
       zip={zipcode}
@@ -11,6 +11,9 @@ const PropertyList = (props) => {
       key={id}
       discount={discount}
       city={city}
+      total={total}
+      monthly={monthly}
+      term={term}
     />
  ),
 );

@@ -4,29 +4,37 @@ import { Well, Button, Image, Row, Col } from 'react-bootstrap';
 const Property = props => (
   <Well>
     <Row>
-      <Col xs={6} sm={4} md={4}>
+      <Col xs={6} sm={6} md={6}>
+        <h4>{`${props.city}, ${props.zip}`}</h4>
+      </Col>
+      <Col xs={6} sm={6} md={6}>
+        <h4>{`Return: ${props.discount}`}</h4>
+      </Col>
+    </Row>
+    <Row>
+      <Col xs={12} sm={4} md={4}>
         <Image src={props.image} thumbnail />
       </Col>
-      <Col xs={6} sm={8} md={8}>
+      <Col xs={12} sm={8} md={8}>
         <Row>
-          <Col sm={6}>
-            Current value: {props.value}
+          <Col sm={12}>
+            Term of investing: {props.term}
           </Col>
-          <Col sm={6}>
-            Discount: {props.discount}
+          <Col sm={12}>
+            Monthly payment: {props.monthly}
           </Col>
-        </Row>
-        <Row>
-          <Col sm={6}>
-            City: {props.city}
+          <Col sm={12}>
+            Total investment: {props.total}
           </Col>
-          <Col sm={6}>
-            Zipcode: {props.zip}
+          <Col sm={12}>
+            <Button>Ask a Question</Button>
+          </Col>
+          <Col sm={12}>
+            <Button>Invest Now</Button>
           </Col>
         </Row>
       </Col>
     </Row>
-
   </Well>
     );
 
@@ -36,6 +44,9 @@ Property.propTypes = {
   city: PropTypes.string,
   value: PropTypes.string,
   discount: PropTypes.string,
+  total: PropTypes.number,
+  monthly: PropTypes.string,
+  term: PropTypes.number,
 };
 
 export default Property;
