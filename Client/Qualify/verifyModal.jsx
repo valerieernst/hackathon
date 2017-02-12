@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Image, Modal } from 'react-bootstrap';
 
 
-export default ({isOpen, image, address, verifyHome, notRightHome}) => (
+export default ({isOpen, image, address, zipcode, verifyHome, notRightHome}) => (
   <div className="static-modal">
     <Modal show={isOpen}>
         <Modal.Header>
@@ -11,7 +11,7 @@ export default ({isOpen, image, address, verifyHome, notRightHome}) => (
 
         <Modal.Body>
           <Image src={image} />
-          <h3>{address}</h3>
+          <h3>{address} {zipcode}</h3>
         </Modal.Body>
 
         <Modal.Footer>

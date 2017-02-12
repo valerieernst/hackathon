@@ -12,6 +12,7 @@ export default ({isOpen, oldMonthlyPayment, newMonthlyPayment, signUp, declinSig
         <Modal.Body>
           <h3>Your Current Monthly Payment: {oldMonthlyPayment}</h3>
           <h3>Your NEW Monthly Payment: {newMonthlyPayment}</h3>
+          
         </Modal.Body>
 
         <Modal.Footer>
