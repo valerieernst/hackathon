@@ -7,8 +7,6 @@ const webpackDevMiddleware = require('webpack-dev-middleware');
 const port = process.env.PORT || 8008;
 const handlers = require('./handlers');
 
-const db = require('../Database/handler');
-
 const app = express();
 
 const compiler = webpack(webpackConfig);
@@ -41,9 +39,7 @@ app.get('/getPriceAppreciation', handlers.getPriceAppreciation);
 
 app.get('/getPropertyList', handlers.getProperties);
 
-app.post('/db/addUser', db.addUser);
-app.post('/db/user', db.addUser);
-app.delete('/db/user', db.deleteUser);
+require('./routes.js')(app);
 
 app.listen(port, () => {
   console.log('app is listening on 8008');
