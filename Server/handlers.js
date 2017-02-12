@@ -70,11 +70,18 @@ module.exports = {
       amortizeTerm: monthsSincePurchase
     });
 
+    let monthlyLoanPaymentDetailsNextMonth = 
+     amortize({
+      amount: originalLoanAmount,
+      rate: interestRate * 100,
+      totalTerm: term,
+      amortizeTerm: monthsSincePurchase+1
+    });
 
     let existingAndNewMonthlyPayment = {};
 
     existingAndNewMonthlyPayment.existingPayment = existingMonthlyPayment;
-    existingAndNewMonthlyPayment.newPayment = existingMonthlyPayment - monthlyLoanPaymentDetails.principal;
+    existingAndNewMonthlyPayment.newPayment = existingMonthlyPayment - (monthlyLoanPaymentDetails.balance-monthlyLoanPaymentDetailsNextMonth.balance);
 
 
     res.send(existingAndNewMonthlyPayment);
