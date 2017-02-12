@@ -49,12 +49,15 @@ module.exports = {
     res.send(priceAppreciation.toString());
   },
 
-  // this returns the monthly payment and breakdown by interest and principal (not including tax)
-  getMonthlyLoanPaymentDetails(req, res) {
-    const lastSoldDate = req.body.lastSoldDate;
-    const originalLoanAmount = req.body.originalLoanAmount;
-    const term = req.body.term;
-    const interestRate = req.body.interetRate;
+
+  //this returns the monthly payment and breakdown by interest and principal (not including tax)
+  getMonthlyLoanPaymentDetails: function (req, res) {
+
+    let existingMonthlyPayment = req.body.existingMonthlyPayment;
+    let lastSoldDate = req.body.lastSoldDate;
+    let originalLoanAmount = req.body.lastSoldPrice['_'] - req.body.downPayment;
+    let term = req.body.term;
+    let interestRate = req.body.interetRate;
 
     const monthsSincePurchase = Math.floor((new Date() - new Date(lastSoldDate)) / (1000 * 60 * 60 * 24 * 30));
 
@@ -66,8 +69,13 @@ module.exports = {
        totalTerm: term,
        amortizeTerm: monthsSincePurchase,
      });
+    let existingAndNewMonthlyPayment = {};
 
-    res.send(monthlyLoanPaymentDetails);
+    existingAndNewMonthlyPayment.existingPayment = existingMonthlyPayment;
+    existingAndNewMonthlyPayment.newPayment = existingMonthlyPayment - monthlyLoanPaymentDetails.principal;
+
+
+    res.send(existingAndNewMonthlyPayment);
   },
   getProperties(req, res) {
     res.send(dummyHomes);
