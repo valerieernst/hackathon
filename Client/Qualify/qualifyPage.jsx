@@ -17,6 +17,7 @@ export default class Qualify extends Component {
     this.closeModal= this.closeModal.bind(this);
     this.submitResults = this.submitResults.bind(this);
     this.verifyHome = this.verifyHome.bind(this);
+    this.changeHelpTerm = this.changeHelpTerm.bind(this);
 
     this.state = {
       ownHome: '',
@@ -34,7 +35,9 @@ export default class Qualify extends Component {
       homeImage: '',
       verifyModalOpen: false,
       newPaymentModalOpen: false,
-      newPayment: 0
+      newPayment: 0,
+      helpTerm: '18',
+      savings: 0
     }
   }
 
@@ -118,14 +121,24 @@ export default class Qualify extends Component {
     .then((result) => {
       console.log(result);
       this.setState({
-        newPayment: result.data.newPayment
+        newPayment: result.data.newPayment.toFixed(0)
       })
       this.setState({
-        newPaymentModalOpen: true
+        newPaymentModalOpen: true,
+        savings: ((this.state.monthlyPayment - this.state.newPayment) * this.state.helpTerm).toFixed(0)
       })
     })
     .catch((err) => {
       console.log(err);
+    })
+  }
+
+  changeHelpTerm (e) {
+    const savings = (this.state.monthlyPayment - this.state.newPayment) * e.target.value
+    
+    this.setState({
+      helpTerm: e.target.value,
+      savings: savings.toFixed(0)
     })
   }
 
@@ -228,6 +241,10 @@ export default class Qualify extends Component {
           declinSignUp={() => this.closeModal('newPaymentModalOpen')} 
           oldMonthlyPayment={this.state.monthlyPayment}
           newMonthlyPayment={this.state.newPayment} 
+          changeHelpTerm={this.changeHelpTerm}
+          helpTerm={this.state.helpTerm}
+          totalSavings={this.state.savings}
+          monthlySavings={(this.state.monthlyPayment - this.state.newPayment).toFixed(0)}
           signUp={this.verifyHome} />
         </Well>
       </div>
