@@ -53,7 +53,7 @@ module.exports = {
   //this returns the monthly payment and breakdown by interest and principal (not including tax)
   getMonthlyLoanPaymentDetails: function (req, res) {
 
-    let lastSoldDate = req.body.lastSoldDate; "10/30/2015";
+    let lastSoldDate = req.body.lastSoldDate;
     let originalLoanAmount = req.body.originalLoanAmount;
     let term = req.body.term;
     let interestRate = req.body.interetRate;
