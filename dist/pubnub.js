@@ -3,6 +3,7 @@ const pubnub = new PubNub({
   publishKey: 'pub-c-d8e13905-d441-4507-ade4-cbbe7095b684'
 })
 
+//initializes listeners. Alter handlers to configure. Check API docs for alternate configuration.
 pubnub.addListener({
   message: (message) => {
     console.log('New message', message.message);
@@ -15,11 +16,17 @@ pubnub.addListener({
   }
 });
 
-pubnub.subscribe({
-  channels: ['nick===GOD'],
-  withPresence: true
-});
+// subscribe to chat channel.
+// enter the name of the channel to subcribe to as parameter .
+const subscribe = (channel) => {
+  pubnub.subscribe({
+    channels: [channel],
+    withPresence: true
+  });
+}
 
+// Publish 'message' to 'channel'.
+// Both parameters required.
 const publish = (message, channel) => {
   pubnub.publish({
     message: message,
