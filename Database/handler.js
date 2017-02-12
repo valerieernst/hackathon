@@ -34,10 +34,10 @@ module.exports = {
     })
   },
   getProperties: (req, res) => {
-    // requires: owner (username)
-    // returns: address, city, state, country, zip, value, mortgage, term, monthly, invested
-    db.query(`SELECT address, city, state, country, zip, value, mortgage, term, monthly, invested ` +
-      `FROM properties WHERE owner = (SELECT id FROM users WHERE username = \'${req.query.owner}\')`)
+    // returns: firstname, lastname, address, city, state, country, zip, value, mortgage, term, monthly, invested
+    db.query(`SELECT u.firstname, u.lastname, p.address, p.city, p.state, `+
+      `p.country, p.zip, p.value, p.mortgage, p.term, p.monthly, p.invested ` +
+      `FROM users as u JOIN properties as p ON u.id = p.owner`)
     .then(results => res.send(results))
     .catch(err => {
       console.error(err);
