@@ -45,7 +45,7 @@ module.exports = {
     })
   },
   postProperty: (req, res) => {
-    // requires: owner (username)
+    // requires: username
     // optional: address, city, state, country, zip, value, mortgage, term, monthly, invested
     db.query('INSERT INTO ' +
       'properties (owner, address, city, state, country, zip, value, mortgage, term, monthly, invested) ' +
@@ -70,8 +70,20 @@ module.exports = {
       res.sendStatus(500);
     })
   },
+  getInvestments: (req, res) => {
+    // requires: username
+    // returns: address, value, return, term, monthly
+    db.query(`SELECT p.address, i.value, i.return, i.term, i.monthly ` +
+      `FROM properties as p JOIN investments as i ON p.id = i.property ` +
+      `WHERE investor = (SELECT id FROM users WHERE username = \'${req.query.username}\')`)
+    .then((results) => res.send(results))
+    .catch(err => {
+      console.error(err);
+      res.sendStatus(500);
+    })
+  },
   postInvestment: (req, res) => {
-    // requires: investor (username), property (address)
+    // requires: username, address
     // optional: value, return, term, monthly
     db.query('INSERT INTO ' +
       'investments (investor, property, value, return, term, monthly) ' +

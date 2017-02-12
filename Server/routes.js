@@ -8,6 +8,7 @@ module.exports = app => {
   app.get('/db/property', db.getProperties);
   app.post('/db/property', db.postProperty);
   app.delete('/db/property', db.deleteProperty);
+  app.get('/db/investment', db.getInvestments);
   app.post('/db/investment', db.postInvestment);
 
 }
