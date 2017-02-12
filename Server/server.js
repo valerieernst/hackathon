@@ -29,7 +29,7 @@ app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname, '../dist')));
 
-app.post('/getZillowData', handlers.fetchZpid);
+app.post('/getZillowData', handlers.fetchZillowData);
 
 app.listen(port, () => {
   console.log('app is listening on 8008');
