@@ -10,5 +10,6 @@ module.exports = app => {
   app.delete('/db/property', db.deleteProperty);
   app.get('/db/investment', db.getInvestments);
   app.post('/db/investment', db.postInvestment);
+  app.delete('/db/investment', db.deleteInvestment);
 
 }
