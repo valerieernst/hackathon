@@ -142,6 +142,10 @@ export default class Qualify extends Component {
     })
   }
 
+  submitHome () {
+    
+  }
+
   
   render() {
     return (
@@ -245,7 +249,7 @@ export default class Qualify extends Component {
           helpTerm={this.state.helpTerm}
           totalSavings={this.state.savings}
           monthlySavings={(this.state.monthlyPayment - this.state.newPayment).toFixed(0)}
-          signUp={this.verifyHome} />
+          signUp={this.submitHome} />
         </Well>
       </div>
     )
