@@ -120,11 +120,8 @@ export default class Qualify extends Component {
       existingMonthlyPayment: this.state.monthlyPayment
     })
     .then((result) => {
-      console.log(result);
       this.setState({
-        newPayment: result.data.newPayment.toFixed(0)
-      })
-      this.setState({
+        newPayment: result.data.newPayment.toFixed(0),
         newPaymentModalOpen: true,
         savings: ((this.state.monthlyPayment - this.state.newPayment) * this.state.helpTerm).toFixed(0)
       })
@@ -145,7 +142,7 @@ export default class Qualify extends Component {
 
   submitHome () {
     //insert into database
-    
+    console.log(this.props.history)
   }
 
   

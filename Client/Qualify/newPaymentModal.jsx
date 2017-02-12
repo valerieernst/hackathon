@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Image, Modal, Row, Col, Radio, Link } from 'react-bootstrap';
 
 
-export default ({isOpen, oldMonthlyPayment, newMonthlyPayment, signUp, declinSignUp, helpTerm, changeHelpTerm, totalSavings, monthlySavings}) => (
+const newPaymentModal = ({isOpen, oldMonthlyPayment, newMonthlyPayment, signUp, declinSignUp, helpTerm, changeHelpTerm, totalSavings, monthlySavings}) => (
   <div className="static-modal">
     <Modal show={isOpen}>
         <Modal.Header>
@@ -49,7 +49,7 @@ export default ({isOpen, oldMonthlyPayment, newMonthlyPayment, signUp, declinSig
 
         <Modal.Footer>
           <div className='modal-body'>
-            <Button onClick={signUp}><Link to="/signup">Sign Me Up!</Link></Button>
+             <Button onClick={signUp}>Sign Me Up!</Button>
             <Button onClick={declinSignUp}>No Thanks.</Button>
           </div>
         </Modal.Footer>
@@ -57,3 +57,5 @@ export default ({isOpen, oldMonthlyPayment, newMonthlyPayment, signUp, declinSig
     </Modal>
   </div>
 );
+
+export default newPaymentModal;
