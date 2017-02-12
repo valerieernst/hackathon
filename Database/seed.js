@@ -9,6 +9,7 @@ db.query('DROP TABLE investments;').catch((err) => console.error(err))
   'password TEXT NOT NULL, ' +
   'firstname TEXT, ' +
   'lastname TEXT, ' +
+  'phone TEXT, ' +
   'email TEXT' +
 ');'))
 .then(() => db.query('CREATE TABLE properties(' +
