@@ -14,6 +14,7 @@ export default class Qualify extends Component {
     this.zipCodeValidation = this.zipCodeValidation.bind(this);
     this.changeHandler = this.changeHandler.bind(this);
     this.closeModal= this.closeModal.bind(this);
+    this.submitResults = this.submitResults.bind(this);
 
     this.state = {
       ownHome: '',
@@ -73,6 +74,10 @@ export default class Qualify extends Component {
     this.setState({modalOpen: false})
   }
 
+  submitResults () {
+    console.log(this.state);
+  }
+
   
   render() {
     return (
@@ -123,6 +128,7 @@ export default class Qualify extends Component {
           </div>
         : null }
       </form>
+      <Modal isOpen={this.state.modalOpen} onRequestClose={this.closeModal} contentLabel={"Verify Modal"} image={this.state.homeImage}/>
       {this.state.zillowReqSent ? 
       <form>
         <FormGroup>
@@ -156,10 +162,9 @@ export default class Qualify extends Component {
               id={'downPayment'} 
               onChange={this.changeHandler}/>
         </FormGroup>
-        <Button>See My Options!</Button>
+        <Button onClick={this.submitResults}>See My Options!</Button>
       </form>
       : null }
-      <Modal isOpen={this.state.modalOpen} onRequestClose={this.closeModal} contentLabel={"Verify Modal"} image={this.state.homeImage}/>
       </div>
     )
   }
