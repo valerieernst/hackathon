@@ -1,0 +1,10 @@
+.jumbotron {
+  height: 80vh;
+}
+.filter {
+  margin: 25px 20px;
+}
+
+.modal-body {
+  text-align: center;
+}
