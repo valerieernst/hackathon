@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Image, Modal } from 'react-bootstrap';
+import { Button, Image, Modal, Row, Col } from 'react-bootstrap';
 
 
 export default ({isOpen, oldMonthlyPayment, newMonthlyPayment, signUp, declinSignUp}) => (
@@ -10,15 +10,20 @@ export default ({isOpen, oldMonthlyPayment, newMonthlyPayment, signUp, declinSig
         </Modal.Header>
 
         <Modal.Body>
-          <h3>Your Current Monthly Payment: {oldMonthlyPayment}</h3>
-          <h3>Your NEW Monthly Payment: {newMonthlyPayment}</h3>
+          <div className='modal-body'>
+            <Row>
+              <Col xs={6} sm={6} md={6}>
+                <h4>Your Current Monthly Payment: ${oldMonthlyPayment}</h4>
+                <Button onClick={signUp}>Sign Me Up!</Button>
+              </Col>
+              <Col xs={6} sm={6} md={6}>
+                <h4>Your NEW Monthly Payment: ${newMonthlyPayment}</h4>
+                <Button onClick={declinSignUp}>No Thanks.</Button>
+              </Col>
+            </Row>  
+          </div>       
           
         </Modal.Body>
-
-        <Modal.Footer>
-          <Button onClick={signUp}>Sign Me Up!</Button>
-          <Button onClick={declinSignUp}>No Thanks, I don't want to save money.</Button>
-        </Modal.Footer>
 
     </Modal>
   </div>

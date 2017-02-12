@@ -25,10 +25,10 @@ export default class Qualify extends Component {
       zipcode: '',
       homeVerifed: false,
       purchasePrice: 0,
-      monthlyPayment: 0,
-      interestRate: 0,
-      downPayment: 0,
-      term: 0,
+      monthlyPayment: '',
+      interestRate: '',
+      downPayment: '',
+      term: '',
       lastSoldDate: '',
       zpid: '',
       homeImage: '',
@@ -135,6 +135,7 @@ export default class Qualify extends Component {
       <div className='container'>
       <Well>
         <form>
+        {!this.state.homeVerifed ?
           <FormGroup>
             <h2>Do You Own Your Home?</h2>
             <Radio value="Yes" 
@@ -149,11 +150,13 @@ export default class Qualify extends Component {
               No
             </Radio>
           </FormGroup>
+          : null }
 
           {this.state.ownHome === 'Yes' && !this.state.homeVerifed ? 
             <div>
               <FormGroup>
                 <h2>Thanks for letting us know - it looks like you could be a great fit for SplitLevel!</h2>
+                <h3>We need a few details about your home to make sure we can give you the most accurate estimate.</h3>
                 <Question 
                   question={'What is the street address of the home you want to list?'} 
                   responseType={"text"}
@@ -186,7 +189,7 @@ export default class Qualify extends Component {
         {this.state.homeVerifed ? 
         <form>
           <FormGroup>
-            <h2>Great! Now just a few more questions so we can figure out how much lower your monthly payment could be:</h2>
+            <h2>Now just a few more questions to figure out how much lower your monthly payment could be:</h2>
               <Question 
                 question={'What was your monthly payment last month?'} 
                 responseType={"text"}
@@ -197,7 +200,7 @@ export default class Qualify extends Component {
               <Question 
                 question={'What is your current interest rate?'} 
                 responseType={"text"}
-                placeholder={'interestRate'}
+                placeholder={'Interest Rate (eg. 2.99)'}
                 value={this.state.interestRate}
                 id={'interestRate'} 
                 onChange={this.changeHandler}/>
