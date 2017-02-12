@@ -55,7 +55,7 @@ module.exports = {
 
     let existingMonthlyPayment = req.body.existingMonthlyPayment;
     let lastSoldDate = req.body.lastSoldDate;
-    let originalLoanAmount = req.body.lastSoldPrice['_'] - req.body.downPayment;
+    let originalLoanAmount = req.body.originalLoanAmount;
     let term = req.body.term;
     let interestRate = req.body.interestRate;
 
@@ -65,7 +65,7 @@ module.exports = {
     const monthlyLoanPaymentDetails =
      amortize({
       amount: originalLoanAmount,
-      rate: interestRate * 100,
+      rate: interestRate,
       totalTerm: term,
       amortizeTerm: monthsSincePurchase
     });
@@ -73,7 +73,7 @@ module.exports = {
     let monthlyLoanPaymentDetailsNextMonth = 
      amortize({
       amount: originalLoanAmount,
-      rate: interestRate * 100,
+      rate: interestRate,
       totalTerm: term,
       amortizeTerm: monthsSincePurchase+1
     });

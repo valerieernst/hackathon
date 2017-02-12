@@ -3,6 +3,7 @@ import Question from './questionTemplate.jsx';
 import { Checkbox, Radio, FormGroup, Button } from 'react-bootstrap';
 import axios from 'axios';
 import VerifyModal from './verifyModal.jsx';
+import NewPaymentModal from './newPaymentModal.jsx'
 
 
 export default class Qualify extends Component {
@@ -32,7 +33,8 @@ export default class Qualify extends Component {
       zpid: '',
       homeImage: '',
       verifyModalOpen: false,
-      newPaymentModalOpen: false
+      newPaymentModalOpen: false,
+      newPayment: 0
     }
   }
 
@@ -110,10 +112,20 @@ export default class Qualify extends Component {
       lastSoldDate: this.state.lastSoldDate,
       term: this.state.term,
       interestRate: this.state.interestRate,
-      originalLoanAmount: originalLoanAmount
+      originalLoanAmount: originalLoanAmount,
+      existingMonthlyPayment: this.state.monthlyPayment
     })
     .then((result) => {
       console.log(result);
+      this.setState({
+        newPayment: result.data.newPayment
+      })
+      this.setState({
+        newPaymentModalOpen: true
+      })
+    })
+    .catch((err) => {
+      console.log(err);
     })
   }
 
@@ -213,10 +225,11 @@ export default class Qualify extends Component {
       </form>
       : null }
 
-      <VerifyModal 
+      <NewPaymentModal 
         isOpen={this.state.newPaymentModalOpen} 
         declinSignUp={() => this.closeModal('newPaymentModalOpen')} 
-        monthlyPayments={this.state.streetAddress} 
+        oldMonthlyPayment={this.state.monthlyPayment}
+        newMonthlyPayment={this.state.newPayment} 
         signUp={this.verifyHome} />
 
       </div>
