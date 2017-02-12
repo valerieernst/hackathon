@@ -34,7 +34,7 @@ app.use(express.static(path.join(__dirname, '../dist')));
 app.post('/getZillowHistoricalData', handlers.getZillowHistoricalData);
 app.post('/getZillowPropertyData', handlers.getZillowPropertyData);
 
-app.get('/getMonthlyLoanPaymentDetails', handlers.getMonthlyLoanPaymentDetails);
+app.post('/getMonthlyLoanPaymentDetails', handlers.getMonthlyLoanPaymentDetails);
 app.get('/getPriceAppreciation', handlers.getPriceAppreciation);
 
 

@@ -1,15 +1,24 @@
 import React from 'react';
-import Modal from 'react-modal';
-import { Button, Image } from 'react-bootstrap';
+import { Button, Image, Modal } from 'react-bootstrap';
 
-export default ({ isOpen, onRequestClose, contentLabel, image}) => {
-  return (
-    <div>
-      <Modal isOpen={isOpen} contentLabel={contentLabel}>
-        <h2>We found a home that matches your address. Is this you?</h2>
-        <Image src={image} />
-        <Button onClick={onRequestClose}>That's Me!</Button>
-      </Modal>
-    </div>
-  )
-}
+
+export default ({isOpen, image, address, zipcode, verifyHome, notRightHome}) => (
+  <div className="static-modal">
+    <Modal show={isOpen}>
+        <Modal.Header>
+          <Modal.Title>We found a home that matches your address. Look familiar?</Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+          <Image src={image} />
+          <h3>{address} {zipcode}</h3>
+        </Modal.Body>
+
+        <Modal.Footer>
+          <Button onClick={verifyHome}>That's Me!</Button>
+          <Button onClick={notRightHome}>No, Try Again</Button>
+        </Modal.Footer>
+
+    </Modal>
+  </div>
+);
