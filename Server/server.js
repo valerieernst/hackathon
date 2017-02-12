@@ -31,7 +31,6 @@ app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname, '../dist')));
 
-<<<<<<< HEAD
 //api routes
 
 app.post('/getZillowHistoricalData', handlers.getZillowHistoricalData);
@@ -43,10 +42,8 @@ app.get('/getPriceAppreciation', handlers.getPriceAppreciation);
 app.get('/getPropertyList', handlers.getProperties);
 
 app.post('/db/addUser', db.addUser);
-=======
 app.post('/db/user', db.addUser);
 app.delete('/db/user', db.deleteUser);
->>>>>>> [FEAT] add deleteUser route {CT}
 
 app.listen(port, () => {
   console.log('app is listening on 8008');

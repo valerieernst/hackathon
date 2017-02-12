@@ -22,5 +22,20 @@ module.exports = {
       console.error(err);
       res.sendStatus(500);
     })
+  },
+  addProperty: (req, res) => {
+    // requires: owner
+    // optional: address, city, state, country, zip, value, mortgage, term, monthly, invested
+    db.query('INSERT INTO ' +
+      'properties (owner, address, city, state, country, zip, value, mortgage, term, monthly, invested) ' +
+      `VALUES ((SELECT id FROM users WHERE username = \'${req.body.owner}\'), \'${req.body.address || ''}\', \'${req.body.city || ''}\', ` +
+      `\'${req.body.state || ''}\', \'${req.body.country || ''}\', ${req.body.zip || 0}, ` +
+      `${req.body.value || 0}, ${req.body.mortgage || 0}, ${req.body.term || 0}, ` +
+      `${req.body.monthly || 0}, ${req.body.invested || 0});`)
+    .then(() => res.sendStatus(201))
+    .catch(err => {
+      console.error(err);
+      res.sendStatus(500);
+    })
   }
 }
