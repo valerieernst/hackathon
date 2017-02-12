@@ -1,2 +1,3 @@
 npm install
-nodemon server/server.js
+node Database/seed.js
+nodemon Server/server.js
