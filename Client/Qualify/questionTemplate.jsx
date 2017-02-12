@@ -1,9 +1,23 @@
 import React, { Component } from 'react';
+import { FormGroup, FormControl, ControlLabel, HelpBlock } from 'react-bootstrap';
 
-export default ({ question, response, buttonText}) => {
+export default ({ id, question, responseType, placeholder, value }) => {
   return (
     <div>
-      <h2>Do you own your home?</h2>
+      <form>
+        <FormGroup
+          controlId={id}
+          // validationState={this.getValidationState()}
+        >
+          <ControlLabel>{question}</ControlLabel>
+          <FormControl
+            type={responseType}
+            // value={this.state.value}
+            // placeholder="Enter text"
+            // onChange={this.handleChange}
+          />
+        </FormGroup>
+      </form>
     </div>
   );
 };
