@@ -26,7 +26,7 @@ export default class Qualify extends Component {
       interestRate: 0,
       downPayment: 0,
       term: 0,
-      homeImage: 'http://imgs.abduzeedo.com/files/gismullr/beautifulhouses/bh306/wh01.jpg',
+      homeImage: '',
       modalOpen: false
     }
   }
