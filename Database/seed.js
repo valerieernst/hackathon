@@ -1,3 +1,4 @@
+require('dotenv').config();
 const db = require('./db.js');
 
 db.query('DROP TABLE investments;').catch((err) => console.error(err))
