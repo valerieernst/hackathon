@@ -37,10 +37,10 @@ app.post('/getZillowPropertyData', handlers.getZillowPropertyData);
 app.post('/getMonthlyLoanPaymentDetails', handlers.getMonthlyLoanPaymentDetails);
 app.get('/getPriceAppreciation', handlers.getPriceAppreciation);
 
-
-
 app.get('/getPropertyList', handlers.getProperties);
+
+require('./routes.js')(app);
+
 app.listen(port, () => {
   console.log('app is listening on 8008');
 })
-;
