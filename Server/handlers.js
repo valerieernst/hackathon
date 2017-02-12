@@ -57,7 +57,7 @@ module.exports = {
     let lastSoldDate = req.body.lastSoldDate;
     let originalLoanAmount = req.body.lastSoldPrice['_'] - req.body.downPayment;
     let term = req.body.term;
-    let interestRate = req.body.interetRate;
+    let interestRate = req.body.interestRate;
 
     const monthsSincePurchase = Math.floor((new Date() - new Date(lastSoldDate)) / (1000 * 60 * 60 * 24 * 30));
 

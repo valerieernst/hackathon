@@ -23,10 +23,12 @@ export default class Qualify extends Component {
       unit: '',
       zipcode: '',
       homeVerifed: false,
+      purchasePrice: 0,
       monthlyPayment: 0,
       interestRate: 0,
       downPayment: 0,
       term: 0,
+      lastSoldDate: '',
       zpid: '',
       homeImage: '',
       verifyModalOpen: false,
@@ -63,7 +65,11 @@ export default class Qualify extends Component {
       zipCode: this.state.zipcode
     })
     .then((result) => {
-      this.setState({zpid: result.data.zpid});
+      this.setState({
+        zpid: result.data.zpid,
+        purchasePrice:result.data.lastSoldPrice._,
+        lastSoldDate: result.data.lastSoldDate
+      });
       this.getImage();
     })
     .catch((err) => {
@@ -87,8 +93,8 @@ export default class Qualify extends Component {
     })
   }
 
-  closeModal () {
-    this.setState({verifyModalOpen: false})
+  closeModal (modal) {
+    this.setState({[modal]: false})
   }
 
   verifyHome () {
@@ -99,7 +105,16 @@ export default class Qualify extends Component {
   }
 
   submitResults () {
-    console.log(this.state);
+    let originalLoanAmount = this.state.purchasePrice - this.state.downPayment;
+    axios.post('getMonthlyLoanPaymentDetails', {
+      lastSoldDate: this.state.lastSoldDate,
+      term: this.state.term,
+      interestRate: this.state.interestRate,
+      originalLoanAmount: originalLoanAmount
+    })
+    .then((result) => {
+      console.log(result);
+    })
   }
 
   
@@ -156,7 +171,7 @@ export default class Qualify extends Component {
 
       <VerifyModal 
         isOpen={this.state.verifyModalOpen} 
-        notRightHome={this.closeModal} 
+        notRightHome={() => this.closeModal('verifyModalOpen')} 
         address={this.state.streetAddress} 
         verifyHome={this.verifyHome}
         image={this.state.homeImage}/>
@@ -197,6 +212,13 @@ export default class Qualify extends Component {
         <Button onClick={this.submitResults}>See My Options!</Button>
       </form>
       : null }
+
+      <VerifyModal 
+        isOpen={this.state.newPaymentModalOpen} 
+        declinSignUp={() => this.closeModal('newPaymentModalOpen')} 
+        monthlyPayments={this.state.streetAddress} 
+        signUp={this.verifyHome} />
+
       </div>
     )
   }
