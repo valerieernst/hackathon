@@ -13,5 +13,14 @@ module.exports = {
       console.error(err);
       res.sendStatus(500);
     })
+  },
+  deleteUser: (req, res) => {
+    // requires: username
+    db.query(`DELETE FROM users WHERE username = \'${req.body.username}\';`)
+    .then(() => res.sendStatus(200))
+    .catch(err => {
+      console.error(err);
+      res.sendStatus(500);
+    })
   }
 }
