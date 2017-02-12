@@ -1,3 +1,4 @@
+require('dotenv').config();
 const axios = require('axios');
 const xml2js = require('xml2js');
 const amortize = require('amortize');
@@ -27,7 +28,7 @@ module.exports = {
   getZillowPropertyData(req, res) {
     const zpid = req.body.zpid;
 
-    axios.get(`http://www.zillow.com/webservice/GetUpdatedPropertyDetails.htm?zws-id=${keys.zillow_key}&zpid=${zpid}`)
+    axios.get(`http://www.zillow.com/webservice/GetUpdatedPropertyDetails.htm?zws-id=${process.env.ZILLOW_KEY}&zpid=${zpid}`)
       .then((results) => {
         parseString(results.data, { explicitArray: false }, (err, result) => {
           const cleanZillowResponse = result['UpdatedPropertyDetails:updatedPropertyDetails'].response;
