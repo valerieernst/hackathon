@@ -10,6 +10,7 @@ class Investors extends Component {
     this.state = {
       houseData: [],
       openFilters: false,
+      activeFilters: {},
     };
     this.filterProperties = this.filterProperties.bind(this);
   }
@@ -32,10 +33,10 @@ class Investors extends Component {
       openFilters: !this.state.openFilters,
     });
   }
-  filterProperties(filteredData) {
+  filterProperties(filters) {
     this.setState({
-      houseData: filteredData,
-    });
+      activeFilters: filters,
+    }, () => { console.log(this.state.activeFilters); });
   }
 
   render() {

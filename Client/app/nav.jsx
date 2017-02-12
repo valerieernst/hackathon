@@ -6,7 +6,7 @@ const NavBar = () => (
   <Navbar collapseOnSelect>
     <Navbar.Header>
       <Navbar.Brand>
-        <Link to="/">Hampster</Link>
+        <Link to="/">Hamster</Link>
       </Navbar.Brand>
       <Navbar.Toggle />
     </Navbar.Header>
