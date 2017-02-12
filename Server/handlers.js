@@ -1,8 +1,13 @@
 const axios = require('axios');
 const keys = require('./keys');
 const xml2js = require('xml2js');
+<<<<<<< HEAD
 const amortize = require('amortize');
 var parseString = require('xml2js').parseString;
+=======
+
+let parseString = require('xml2js').parseString;
+>>>>>>> set up api for getdata, create filter components{IA}
 
 
 module.exports = {
@@ -20,7 +25,7 @@ module.exports = {
             res.send(cleanZillowResponse);
         });
       })
-      .catch( (error) => {
+      .catch((error) => {
         console.log(error);
       });
   },
@@ -72,3 +77,37 @@ module.exports = {
     res.send(monthlyLoanPaymentDetails);
   }  
 };
+  getProperties (req, res) {
+    res.send(dummyHomes);
+  },
+
+};
+
+const dummyHomes = [{
+  owner: 'XYZ',
+  zipcode: '94100',
+  city: 'San Francisco',
+  image: 'house.png',
+  monthlyInvestment: '1,000',
+  discount: '15%',
+  value: '1,000,000',
+  id: 1,
+}, {
+  owner: 'XYZ',
+  zipcode: '94100',
+  city: 'San Francisco',
+  image: 'house.png',
+  monthlyInvestment: '1,000',
+  discount: '15%',
+  value: '1,000,000',
+  id: 2,
+}, {
+  owner: 'XYZ',
+  zipcode: '94100',
+  city: 'San Francisco',
+  image: 'house.png',
+  monthlyInvestment: '1,000',
+  discount: '15%',
+  value: '1,000,000',
+  id: 3,
+}];

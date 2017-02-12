@@ -1,63 +1,52 @@
 import React, { Component, PropTypes } from 'react';
 import { Panel, Grid, Row, Col } from 'react-bootstrap';
-import Property from './Property.jsx';
+import axios from 'axios';
+import PropertyList from './propertyList.jsx';
+import Filters from './filters.jsx';
 
-const Investors = () => {
-  const propertyList = dummyHomes.map(({ discount, zipcode, value, id, image, city }) => (
-    <Property
-      image={image}
-      zip={zipcode}
-      value={value}
-      key={id}
-      discount={discount}
-      city={city}
-    />
- ),
-);
+class Investors extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      houseData: [],
+    };
+    this.filterProperties = this.filterProperties.bind(this);
+  }
+  componentWillMount() {
+    this.getPropertyList();
+  }
+  filterProperties(filteredData) {
+    this.setState({
+      houseData: filteredData,
+    });
+  }
+  getPropertyList() {
+    axios.get('/getPropertyList')
+    .then((res) => {
+      this.setState({
+        houseData: res.data,
+      });
+    })
+    .catch(err => console.error('Error getting property list: ', err));
+  }
 
-  return (
-    <Grid>
-      <Row>
-        <Panel>
-          {propertyList}
-        </Panel>
-      </Row>
-    </Grid>
-  );
-};
-
+  render() {
+    return (
+      <Grid>
+        <Row>
+          <Col xs={3} sm={3} md={4} >
+            <Filters filterProperties={this.filterProperties} houseData={this.state.houseData} />
+          </Col>
+          <Col xs={9} sm={9} md={8}>
+            <PropertyList houseData={this.state.houseData} />
+          </Col>
+        </Row>
+      </Grid>
+    );
+  }
+}
 Investors.propTypes = {
 
 };
 
 export default Investors;
-
-
-const dummyHomes = [{
-  owner: 'XYZ',
-  zipcode: '94100',
-  city: 'San Francisco',
-  image: 'house.png',
-  monthlyInvestment: '1,000',
-  discount: '15%',
-  value: '1,000,000',
-  id: 1,
-}, {
-  owner: 'XYZ',
-  zipcode: '94100',
-  city: 'San Francisco',
-  image: 'house.png',
-  monthlyInvestment: '1,000',
-  discount: '15%',
-  value: '1,000,000',
-  id: 2,
-}, {
-  owner: 'XYZ',
-  zipcode: '94100',
-  city: 'San Francisco',
-  image: 'house.png',
-  monthlyInvestment: '1,000',
-  discount: '15%',
-  value: '1,000,000',
-  id: 3,
-}];
