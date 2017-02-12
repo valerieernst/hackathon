@@ -1,5 +1,4 @@
 const axios = require('axios');
-const keys = require('./keys');
 const xml2js = require('xml2js');
 const amortize = require('amortize');
 const parseString = require('xml2js').parseString;
@@ -12,7 +11,7 @@ module.exports = {
     const streetAddress = req.body.streetAddress || '74+Lynch+Street';
     const zipCode = req.body.zipCode;
 
-    axios.get(`http://www.zillow.com/webservice/GetDeepSearchResults.htm?zws-id=${keys.zillow_key}&address=${streetAddress}&citystatezip=${zipCode}`)
+    axios.get(`http://www.zillow.com/webservice/GetDeepSearchResults.htm?zws-id=${process.env.ZILLOW_KEY}&address=${streetAddress}&citystatezip=${zipCode}`)
       .then((results) => {
         parseString(results.data, { explicitArray: false }, (err, result) => {
           const cleanZillowResponse = result['SearchResults:searchresults'].response.results.result;
