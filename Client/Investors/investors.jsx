@@ -9,6 +9,7 @@ class Investors extends Component {
     super(props);
     this.state = {
       houseData: [],
+      propertyList: [],
       openFilters: false,
       activeFilters: {},
     };
@@ -24,6 +25,7 @@ class Investors extends Component {
       console.log('data from server', res.data);
       this.setState({
         houseData: res.data,
+        propertyList: res.data,
       });
     })
     .catch(err => console.error('Error getting property list: ', err));
@@ -33,10 +35,25 @@ class Investors extends Component {
       openFilters: !this.state.openFilters,
     });
   }
-  filterProperties(filters) {
+  filterProperties({ roi, value, monthly, locations, term }) {
+    const filteredProperties = this.state.houseData.filter((property) => {
+      let filter = false;
+      if (property.discount >= roi[0] && property.discount <= roi[1]
+        && property.value >= value[0] && property.value <= value[1]
+        && property.monthly >= monthly[0] && property.monthly <= monthly[1]) {
+        filter = true;
+        if (locations.length) {
+          filter = locations.indexOf(property.state) >= 0;
+        }
+        if (term.length) {
+          filter = term.indexOf(property.term) >= 0;
+        }
+      }
+      return filter;
+    });
     this.setState({
-      activeFilters: filters,
-    }, () => { console.log(this.state.activeFilters); });
+      propertyList: filteredProperties,
+    }, () => { console.log(this.state.houseData); });
   }
 
   render() {
@@ -57,7 +74,7 @@ class Investors extends Component {
             </Panel>
           </Col>
           <Col xs={12} sm={9} md={9}>
-            <PropertyList houseData={this.state.houseData} />
+            <PropertyList houseData={this.state.houseData} propertyList={this.state.propertyList} />
           </Col>
         </Row>
       </Grid>

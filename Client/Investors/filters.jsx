@@ -32,11 +32,20 @@ class Filters extends Component {
       [key]: temp,
     });
   }
+  resetFilters() {
+    this.setState({
+      roi: [0, 100],
+      monthly: [100, 10000],
+      locations: [],
+      term: [],
+      value: [200000, 2000000],
+    }, () => { this.props.filterProperties(this.state); });
+  }
   render() {
     return (
       <div>
         <Row>
-          <div className="slider">
+          <div className="filter">
             <p>Return on Investment, %</p>
             <Range
               min={0}
@@ -64,7 +73,7 @@ class Filters extends Component {
           </div>
         </Row>
         <Row>
-          <div className="slider">
+          <div className="filter">
             <p>Monthly Investment</p>
             <Range
               min={100}
@@ -77,7 +86,7 @@ class Filters extends Component {
           </div>
         </Row>
         <Row>
-          <div className="slider">
+          <div className="filter">
             <p>Home Value</p>
             <Range
               min={200000}
@@ -154,6 +163,7 @@ class Filters extends Component {
         </Row>
         <Row>
           <Button type="submit" onClick={() => { this.props.filterProperties(this.state); }}> Apply Filters </Button>
+          <Button type="submit" onClick={() => { this.resetFilters(); }}> Reset </Button>
         </Row>
       </div>
     );
