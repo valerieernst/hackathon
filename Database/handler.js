@@ -58,5 +58,15 @@ module.exports = {
       console.error(err);
       res.sendStatus(500);
     })
+  },
+  deleteProperty: (req, res) => {
+    // requires: username, address
+    db.query(`DELETE FROM properties WHERE owner = (SELECT id FROM users WHERE username = \'${req.body.username}\') ` +
+      `AND address = \'${req.body.address}\'`)
+    .then(() => res.sendStatus(200))
+    .catch(err => {
+      console.error(err);
+      res.sendStatus(500);
+    })
   }
 }
