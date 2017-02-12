@@ -54,7 +54,7 @@ module.exports = {
     const existingMonthlyPayment = req.body.existingMonthlyPayment;
     const lastSoldDate = req.body.lastSoldDate;
     const originalLoanAmount = req.body.originalLoanAmount;
-    const term = req.body.term;
+    const term = req.body.term *12;
     const interestRate = req.body.interestRate;
 
     const monthsSincePurchase = Math.floor((new Date() - new Date(lastSoldDate)) / (1000 * 60 * 60 * 24 * 30));
@@ -76,10 +76,11 @@ module.exports = {
        amortizeTerm: monthsSincePurchase + 1,
      });
 
+
     const existingAndNewMonthlyPayment = {};
 
     existingAndNewMonthlyPayment.existingPayment = existingMonthlyPayment;
-    existingAndNewMonthlyPayment.newPayment = existingMonthlyPayment - (monthlyLoanPaymentDetails.balance - monthlyLoanPaymentDetailsNextMonth.balance);
+    existingAndNewMonthlyPayment.newPayment = Math.round(existingMonthlyPayment - (monthlyLoanPaymentDetails.balance - monthlyLoanPaymentDetailsNextMonth.balance));
 
     res.send(existingAndNewMonthlyPayment);
   },
