@@ -5,6 +5,7 @@ const webpack = require('webpack');
 const webpackConfig = require('../webpackConfig.js');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const port = process.env.PORT || 8008;
+const handlers = require('./handlers');
 
 const app = express();
 
@@ -27,6 +28,8 @@ app.use(webpackDevMiddleware(compiler, {
 app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname, '../dist')));
+
+app.post('/getZillowData', handlers.fetchZpid);
 
 app.listen(port, () => {
   console.log('app is listening on 8008');
