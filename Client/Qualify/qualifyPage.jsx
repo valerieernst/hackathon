@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Question from './questionTemplate.jsx';
 import { Checkbox, Radio, FormGroup, Button } from 'react-bootstrap';
 import axios from 'axios';
-import Modal from './verifyModal.jsx';
+import VerifyModal from './verifyModal.jsx';
 
 
 export default class Qualify extends Component {
@@ -15,19 +15,22 @@ export default class Qualify extends Component {
     this.changeHandler = this.changeHandler.bind(this);
     this.closeModal= this.closeModal.bind(this);
     this.submitResults = this.submitResults.bind(this);
+    this.verifyHome = this.verifyHome.bind(this);
 
     this.state = {
       ownHome: '',
       streetAddress: '',
       unit: '',
       zipcode: '',
-      zillowReqSent: false,
+      homeVerifed: false,
       monthlyPayment: 0,
       interestRate: 0,
       downPayment: 0,
       term: 0,
+      zpid: '',
       homeImage: '',
-      modalOpen: false
+      verifyModalOpen: false,
+      newPaymentModalOpen: false
     }
   }
 
@@ -53,25 +56,46 @@ export default class Qualify extends Component {
   }
 
   sendZillowRequest () {
-    this.setState({zillowReqSent: true})
-    this.setState({modalOpen: true})
-
     const streetAddressForReq = this.state.streetAddress.replace(' ', '+');
-    axios.post('/getZillowData', {
-      street: streetAddressForReq,
+    axios.post('/getZillowHistoricalData', {
+      streetAddress: streetAddressForReq,
       unit: this.state.unit,
-      zipcode: this.state.zipcode
+      zipCode: this.state.zipcode
     })
-    .then(function(data) {
-      console.log(data);
+    .then((result) => {
+      this.setState({zpid: result.data.zpid});
+      this.getImage();
     })
-    .catch(function(err) {
+    .catch((err) => {
+      console.log(err);
+    })
+  }
+
+  getImage () {
+    axios.post('/getZillowPropertyData', {
+      zpid: this.state.zpid
+    })
+    .then((result) => {
+      const image = result.data.images.image.url[0];
+      this.setState({
+        homeImage: image,
+        verifyModalOpen: true,
+      });
+    })
+    .catch((err) => {
       console.log(err);
     })
   }
 
   closeModal () {
-    this.setState({modalOpen: false})
+    this.setState({verifyModalOpen: false})
+  }
+
+  verifyHome () {
+    this.setState({
+      homeVerifed: true,
+      verifyModalOpen: false
+    })
   }
 
   submitResults () {
@@ -82,6 +106,7 @@ export default class Qualify extends Component {
   render() {
     return (
       <div className='container'>
+
       <form>
         <FormGroup>
           <label>Do You Own Your Home?</label>
@@ -97,7 +122,7 @@ export default class Qualify extends Component {
             No
           </Radio>
         </FormGroup>
-        {this.state.ownHome === 'Yes' && !this.state.zillowReqSent ? 
+        {this.state.ownHome === 'Yes' && !this.state.homeVerifed ? 
           <div>
             <FormGroup>
               <h2>Thanks for letting us know - it looks like you could be a great fit for SplitLevel!</h2>
@@ -128,8 +153,15 @@ export default class Qualify extends Component {
           </div>
         : null }
       </form>
-      <Modal isOpen={this.state.modalOpen} onRequestClose={this.closeModal} contentLabel={"Verify Modal"} image={this.state.homeImage}/>
-      {this.state.zillowReqSent ? 
+
+      <VerifyModal 
+        isOpen={this.state.verifyModalOpen} 
+        notRightHome={this.closeModal} 
+        contentLabel={"Verify Modal"} 
+        verifyHome={this.verifyHome}
+        image={this.state.homeImage}/>
+
+      {this.state.homeVerifed ? 
       <form>
         <FormGroup>
           <h2>Great! Now just a few more questions so we can figure out how much lower your monthly payment could be:</h2>
@@ -165,6 +197,13 @@ export default class Qualify extends Component {
         <Button onClick={this.submitResults}>See My Options!</Button>
       </form>
       : null }
+
+      <NewPaymentModal 
+        isOpen={this.state.newPaymentModalOpen} 
+        noButton={} 
+        contentLabel={"New Payment Modal"} 
+        yesButton={}
+        payments={this.state.payments}/>
       </div>
     )
   }
