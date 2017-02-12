@@ -1,23 +1,18 @@
 import React, { Component } from 'react';
 import { FormGroup, FormControl, ControlLabel, HelpBlock } from 'react-bootstrap';
 
-export default ({ id, question, responseType, placeholder, value }) => {
+export default ({ id, question, responseType, placeholder, value, validation }) => {
   return (
     <div>
-      <form>
-        <FormGroup
-          controlId={id}
-          // validationState={this.getValidationState()}
-        >
-          <ControlLabel>{question}</ControlLabel>
-          <FormControl
-            type={responseType}
-            // value={this.state.value}
-            // placeholder="Enter text"
-            // onChange={this.handleChange}
-          />
-        </FormGroup>
-      </form>
+      <FormGroup validationState={validation}>
+        <ControlLabel>{question}</ControlLabel>
+        <FormControl
+          type={responseType}
+          // value={this.state.value}
+          placeholder={placeholder}
+          // onChange={this.handleChange}
+        />
+      </FormGroup>
     </div>
   );
 };
