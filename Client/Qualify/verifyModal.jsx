@@ -10,13 +10,17 @@ export default ({isOpen, image, address, zipcode, verifyHome, notRightHome}) => 
         </Modal.Header>
 
         <Modal.Body>
-          <Image src={image} />
-          <h3>{address} {zipcode}</h3>
+          <div className='modal-body'>
+            <Image src={image} />
+            <h3>{address} {zipcode}</h3>
+          </div>
         </Modal.Body>
 
         <Modal.Footer>
-          <Button onClick={verifyHome}>That's Me!</Button>
-          <Button onClick={notRightHome}>No, Try Again</Button>
+          <div className='modal-body'>
+            <Button onClick={verifyHome}>That's Me!</Button>
+            <Button onClick={notRightHome}>No, Try Again</Button>
+          </div>
         </Modal.Footer>
 
     </Modal>
