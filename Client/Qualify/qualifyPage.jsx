@@ -15,6 +15,10 @@ export default class Qualify extends Component {
     this.changeOwnHome = this.changeOwnHome.bind(this);
     this.sendZillowRequest = this.sendZillowRequest.bind(this);
     this.zipCodeValidation = this.zipCodeValidation.bind(this);
+    this.changeStreet = this.changeStreet.bind(this);
+    this.changeUnit = this.changeUnit.bind(this);
+    this.changeZipCode = this.changeZipCode.bind(this);
+
     this.state = {
       ownHome: '',
       streetAddress: '',
@@ -29,15 +33,34 @@ export default class Qualify extends Component {
     })
   }
 
+  changeStreet (e) {
+    this.setState({
+      streetAddress: e.target.value
+    })
+  }
+
+  changeUnit (e) {
+    this.setState({
+      unit: e.target.value
+    })
+  }
+
+  changeZipCode (e) {
+    this.setState({
+      zipcode: e.target.value
+    })
+  }
+
+
   zipCodeValidation () {
     const length = this.state.zipcode.length;
-    if (length > 10) return 'success';
+    if (length === 5) return 'success';
     else if (length > 5) return 'warning';
-    else if (length > 0) return 'error';
+    else if (length < 5) return 'error';
   }
 
   sendZillowRequest () {
-
+    console.log(this.state);
   }
 
   
@@ -58,29 +81,36 @@ export default class Qualify extends Component {
             No
           </Radio>
         </FormGroup>
-        <FormGroup>
-          Thanks for letting us know - it looks like you could be a great fit for SplitLevel!
-          <Question 
-            question={'What is the street address of the home you want to list?'} 
-            responseType={"text"}
-            placeholder={'Street Address'}
-            value={this.state.streetAddress}
-            id={'street'} />
-          <Question 
-            question={'Do you have a specific unit number?'} 
-            responseType={"text"}
-            placeholder={'Unit Number'}
-            value={this.state.unit}
-            id={'unit'} />
-          <Question 
-            question={'And the zip code?'} 
-            responseType={"text"}
-            placeholder={'Zip Code'}
-            value={this.state.zipcode}
-            id={'zipcode'} 
-            validation={this.zipCodeValidation()}/>
-        </FormGroup>
-        <Button onClick={this.sendZillowRequest}>Get Details About My Home!</Button>
+        {this.state.ownHome === 'Yes' ? 
+          <div>
+            <FormGroup>
+              <h2>Thanks for letting us know - it looks like you could be a great fit for SplitLevel!</h2>
+              <Question 
+                question={'What is the street address of the home you want to list?'} 
+                responseType={"text"}
+                placeholder={'Street Address'}
+                value={this.state.streetAddress}
+                id={'street'} 
+                onChange={this.changeStreet}/>
+              <Question 
+                question={'Do you have a specific unit number?'} 
+                responseType={"text"}
+                placeholder={'Unit Number'}
+                value={this.state.unit}
+                id={'unit'} 
+                onChange={this.changeUnit}/>
+              <Question 
+                question={'And the zip code?'} 
+                responseType={"text"}
+                placeholder={'Zip Code'}
+                value={this.state.zipcode}
+                id={'zipcode'} 
+                onChange={this.changeZipCode}
+                validation={this.zipCodeValidation()}/>
+            </FormGroup>
+            <Button onClick={this.sendZillowRequest}>Get Details About My Home!</Button> 
+          </div>
+        : null }
       </form>
       </div>
     )
