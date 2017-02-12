@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Question from './questionTemplate.jsx';
 import { Checkbox, Radio, FormGroup, Button } from 'react-bootstrap';
 import axios from 'axios';
+import Modal from './verifyModal.jsx';
 
 
 export default class Qualify extends Component {
@@ -12,6 +13,7 @@ export default class Qualify extends Component {
     this.sendZillowRequest = this.sendZillowRequest.bind(this);
     this.zipCodeValidation = this.zipCodeValidation.bind(this);
     this.changeHandler = this.changeHandler.bind(this);
+    this.closeModal= this.closeModal.bind(this);
 
     this.state = {
       ownHome: '',
@@ -22,7 +24,9 @@ export default class Qualify extends Component {
       monthlyPayment: 0,
       interestRate: 0,
       downPayment: 0,
-      term: 0
+      term: 0,
+      homeImage: 'http://imgs.abduzeedo.com/files/gismullr/beautifulhouses/bh306/wh01.jpg',
+      modalOpen: false
     }
   }
 
@@ -49,6 +53,7 @@ export default class Qualify extends Component {
 
   sendZillowRequest () {
     this.setState({zillowReqSent: true})
+    this.setState({modalOpen: true})
 
     const streetAddressForReq = this.state.streetAddress.replace(' ', '+');
     axios.post('/getZillowData', {
@@ -64,10 +69,14 @@ export default class Qualify extends Component {
     })
   }
 
+  closeModal () {
+    this.setState({modalOpen: false})
+  }
+
   
   render() {
     return (
-      <div>
+      <div className='container'>
       <form>
         <FormGroup>
           <label>Do You Own Your Home?</label>
@@ -150,6 +159,7 @@ export default class Qualify extends Component {
         <Button>See My Options!</Button>
       </form>
       : null }
+      <Modal isOpen={this.state.modalOpen} onRequestClose={this.closeModal} contentLabel={"Verify Modal"} image={this.state.homeImage}/>
       </div>
     )
   }
