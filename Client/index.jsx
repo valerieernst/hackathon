@@ -8,8 +8,7 @@ import MainPage from './app/jumbo.jsx';
 
 ReactDOM.render(
   <Router history={browserHistory}>
-    <Route path="" component={App}>
-      <Route path="/" component={MainPage} />
+    <Route path="/" component={App}>
       <Route path="investors" component={Investors} />
       <Route path="owners" component={Investors} />
     </Route>
