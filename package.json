@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/CharlottesWebpack/hackathon#readme",
   "dependencies": {
+    "amortize": "^0.4.0",
     "axios": "^0.15.3",
     "body-parser": "^1.16.1",
     "express": "^4.14.1",

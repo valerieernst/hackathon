@@ -29,7 +29,15 @@ app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname, '../dist')));
 
-app.post('/getZillowData', handlers.fetchZillowData);
+//api routes
+
+app.post('/getZillowHistoricalData', handlers.getZillowHistoricalData);
+app.post('/getZillowPropertyData', handlers.getZillowPropertyData);
+
+app.get('/getMonthlyLoanPaymentDetails', handlers.getMonthlyLoanPaymentDetails);
+app.get('/getPriceAppreciation', handlers.getPriceAppreciation);
+
+
 
 app.listen(port, () => {
   console.log('app is listening on 8008');
