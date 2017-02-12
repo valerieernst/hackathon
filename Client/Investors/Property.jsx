@@ -27,10 +27,10 @@ const Property = props => (
             Total investment: {props.total}
           </Col>
           <Col sm={12}>
-            <Button>Ask a Question</Button>
+            <Button onClick={() => { console.log('OPENS THE CHAT') ;}}>Ask a Question</Button>
           </Col>
           <Col sm={12}>
-            <Button>Invest Now</Button>
+            <Button onClick={() => { console.log('CHECK IF LOGGED IN'); }}>Invest Now</Button>
           </Col>
         </Row>
       </Col>
