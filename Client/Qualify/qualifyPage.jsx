@@ -157,7 +157,7 @@ export default class Qualify extends Component {
       <VerifyModal 
         isOpen={this.state.verifyModalOpen} 
         notRightHome={this.closeModal} 
-        contentLabel={"Verify Modal"} 
+        address={this.state.streetAddress} 
         verifyHome={this.verifyHome}
         image={this.state.homeImage}/>
 
@@ -197,13 +197,6 @@ export default class Qualify extends Component {
         <Button onClick={this.submitResults}>See My Options!</Button>
       </form>
       : null }
-
-      <NewPaymentModal 
-        isOpen={this.state.newPaymentModalOpen} 
-        noButton={} 
-        contentLabel={"New Payment Modal"} 
-        yesButton={}
-        payments={this.state.payments}/>
       </div>
     )
   }
