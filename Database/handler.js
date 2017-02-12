@@ -1,6 +1,16 @@
 const db = require('./db.js');
 
 module.exports = {
+  getUser: (req, res) => {
+    // requires: username
+    // returns: firstname, lastname, email
+    db.query(`SELECT firstname, lastname, email FROM users WHERE username = \'${req.query.username}\'`)
+    .then((results) => res.send(results))
+    .catch(err => {
+      console.error(err);
+      res.sendStatus(500);
+    })
+  },
   addUser: (req, res) => {
     // requires: username, password
     // optional: firstname, lastname, email
