@@ -11,6 +11,7 @@ export default ({ id, question, responseType, placeholder, value, validation, on
           value={value}
           placeholder={placeholder}
           onChange={onChange}
+          id={id}
         />
       </FormGroup>
     </div>
