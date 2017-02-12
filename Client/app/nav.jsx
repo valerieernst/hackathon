@@ -1,11 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
+import { Link } from 'react-router';
 
 const NavBar = () => (
   <Navbar collapseOnSelect>
     <Navbar.Header>
       <Navbar.Brand>
-        Hampster
+        <Link to="/">Hampster</Link>
       </Navbar.Brand>
       <Navbar.Toggle />
     </Navbar.Header>
