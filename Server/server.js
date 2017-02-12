@@ -12,7 +12,7 @@ const app = express();
 const compiler = webpack(webpackConfig);
 
 app.use(webpackDevMiddleware(compiler, {
-  publicPath: "/",
+  publicPath: '/',
   stats: {
     // Config for minimal console.log mess.
     assets: false,
@@ -21,8 +21,8 @@ app.use(webpackDevMiddleware(compiler, {
     hash: false,
     timings: false,
     chunks: false,
-    chunkModules: false
-  }
+    chunkModules: false,
+  },
 }));
 
 app.use(bodyParser.json());
@@ -39,6 +39,8 @@ app.get('/getPriceAppreciation', handlers.getPriceAppreciation);
 
 
 
+app.get('/getPropertyList', handlers.getProperties);
 app.listen(port, () => {
   console.log('app is listening on 8008');
 })
+;

@@ -1,63 +1,70 @@
 import React, { Component, PropTypes } from 'react';
-import { Panel, Grid, Row, Col } from 'react-bootstrap';
-import Property from './Property.jsx';
+import { Panel, Grid, Row, Col, Button } from 'react-bootstrap';
+import axios from 'axios';
+import PropertyList from './propertyList.jsx';
+import Filters from './filters.jsx';
 
-const Investors = () => {
-  const propertyList = dummyHomes.map(({ discount, zipcode, value, id, image, city }) => (
-    <Property
-      image={image}
-      zip={zipcode}
-      value={value}
-      key={id}
-      discount={discount}
-      city={city}
-    />
- ),
-);
+class Investors extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      houseData: [],
+      openFilters: false,
+    };
+    this.filterProperties = this.filterProperties.bind(this);
+  }
+  componentWillMount() {
+    this.getPropertyList();
+  }
 
-  return (
-    <Grid>
-      <Row>
-        <Panel>
-          {propertyList}
-        </Panel>
-      </Row>
-    </Grid>
-  );
-};
+  getPropertyList() {
+    axios.get('/getPropertyList')
+    .then((res) => {
+      console.log('data from server', res.data);
+      this.setState({
+        houseData: res.data,
+      });
+    })
+    .catch(err => console.error('Error getting property list: ', err));
+  }
+  showFilters() {
+    this.setState({
+      openFilters: !this.state.openFilters,
+    });
+  }
+  filterProperties(filteredData) {
+    this.setState({
+      houseData: filteredData,
+    });
+  }
 
+  render() {
+    return (
+      <Grid>
+        <Row>
+          <Col xsHidden sm={3} md={3} >
+            <Filters filterProperties={this.filterProperties} houseData={this.state.houseData} />
+          </Col>
+          <Col xs={12} smHidden mdHidden lgHidden>
+            <Button onClick={() => { this.showFilters(); }} > Show Filters </Button>
+            <Panel collapsible expanded={this.state.openFilters}>
+              <Row>
+                <Col xs={10} xsOffset={1}>
+                  <Filters filterProperties={this.filterProperties} houseData={this.state.houseData} />
+                </Col>
+              </Row>
+            </Panel>
+          </Col>
+          <Col xs={12} sm={9} md={9}>
+            <PropertyList houseData={this.state.houseData} />
+          </Col>
+        </Row>
+      </Grid>
+    );
+  }
+}
 Investors.propTypes = {
 
 };
 
 export default Investors;
-
-
-const dummyHomes = [{
-  owner: 'XYZ',
-  zipcode: '94100',
-  city: 'San Francisco',
-  image: 'house.png',
-  monthlyInvestment: '1,000',
-  discount: '15%',
-  value: '1,000,000',
-  id: 1,
-}, {
-  owner: 'XYZ',
-  zipcode: '94100',
-  city: 'San Francisco',
-  image: 'house.png',
-  monthlyInvestment: '1,000',
-  discount: '15%',
-  value: '1,000,000',
-  id: 2,
-}, {
-  owner: 'XYZ',
-  zipcode: '94100',
-  city: 'San Francisco',
-  image: 'house.png',
-  monthlyInvestment: '1,000',
-  discount: '15%',
-  value: '1,000,000',
-  id: 3,
-}];
