@@ -27,7 +27,7 @@ const Property = props => (
             Total investment: {props.total}
           </Col>
           <Col sm={12}>
-            <Button onClick={() => { console.log('OPENS THE CHAT') ;}}>Ask a Question</Button>
+            <Button onClick={() => { console.log('OPENS THE CHAT'); }}>Ask a Question</Button>
           </Col>
           <Col sm={12}>
             <Button onClick={() => { console.log('CHECK IF LOGGED IN'); }}>Invest Now</Button>
@@ -42,10 +42,10 @@ Property.propTypes = {
   image: PropTypes.string,
   zip: PropTypes.string,
   city: PropTypes.string,
-  value: PropTypes.string,
-  discount: PropTypes.string,
+  value: PropTypes.number,
+  discount: PropTypes.number,
   total: PropTypes.number,
-  monthly: PropTypes.string,
+  monthly: PropTypes.number,
   term: PropTypes.number,
 };
 

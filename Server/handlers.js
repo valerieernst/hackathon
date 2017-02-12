@@ -50,38 +50,37 @@ module.exports = {
   },
 
 
-  //this returns the monthly payment and breakdown by interest and principal (not including tax)
-  getMonthlyLoanPaymentDetails: function (req, res) {
-
-    let existingMonthlyPayment = req.body.existingMonthlyPayment;
-    let lastSoldDate = req.body.lastSoldDate;
-    let originalLoanAmount = req.body.originalLoanAmount;
-    let term = req.body.term;
-    let interestRate = req.body.interestRate;
+  // this returns the monthly payment and breakdown by interest and principal (not including tax)
+  getMonthlyLoanPaymentDetails(req, res) {
+    const existingMonthlyPayment = req.body.existingMonthlyPayment;
+    const lastSoldDate = req.body.lastSoldDate;
+    const originalLoanAmount = req.body.originalLoanAmount;
+    const term = req.body.term;
+    const interestRate = req.body.interestRate;
 
     const monthsSincePurchase = Math.floor((new Date() - new Date(lastSoldDate)) / (1000 * 60 * 60 * 24 * 30));
 
     // npm module that return loan details
     const monthlyLoanPaymentDetails =
      amortize({
-      amount: originalLoanAmount,
-      rate: interestRate,
-      totalTerm: term,
-      amortizeTerm: monthsSincePurchase
-    });
+       amount: originalLoanAmount,
+       rate: interestRate,
+       totalTerm: term,
+       amortizeTerm: monthsSincePurchase,
+     });
 
-    let monthlyLoanPaymentDetailsNextMonth = 
+    const monthlyLoanPaymentDetailsNextMonth =
      amortize({
-      amount: originalLoanAmount,
-      rate: interestRate,
-      totalTerm: term,
-      amortizeTerm: monthsSincePurchase+1
-    });
+       amount: originalLoanAmount,
+       rate: interestRate,
+       totalTerm: term,
+       amortizeTerm: monthsSincePurchase + 1,
+     });
 
-    let existingAndNewMonthlyPayment = {};
+    const existingAndNewMonthlyPayment = {};
 
     existingAndNewMonthlyPayment.existingPayment = existingMonthlyPayment;
-    existingAndNewMonthlyPayment.newPayment = existingMonthlyPayment - (monthlyLoanPaymentDetails.balance-monthlyLoanPaymentDetailsNextMonth.balance);
+    existingAndNewMonthlyPayment.newPayment = existingMonthlyPayment - (monthlyLoanPaymentDetails.balance - monthlyLoanPaymentDetailsNextMonth.balance);
 
     res.send(existingAndNewMonthlyPayment);
   },
@@ -95,10 +94,11 @@ const dummyHomes = [{
   owner: 'XYZ',
   zipcode: '94100',
   city: 'San Francisco',
+  state: 'CA',
   image: 'house.png',
-  monthly: '1,000',
-  discount: '15%',
-  value: '1,000,000',
+  monthly: 1000,
+  discount: 15,
+  value: 1000000,
   id: 1,
   total: 30,
   term: 6,
@@ -106,22 +106,24 @@ const dummyHomes = [{
   owner: 'XYZ',
   zipcode: '94100',
   city: 'San Francisco',
+  state: 'CA',
   image: 'house.png',
-  monthly: '1,000',
-  discount: '15%',
-  value: '1,000,000',
+  monthly: 1000,
+  discount: 15,
+  value: 500000,
   id: 2,
   total: 30,
-  term: 6,
+  term: 12,
 }, {
   owner: 'XYZ',
   zipcode: '94100',
   city: 'San Francisco',
+  state: 'CA',
   image: 'house.png',
-  monthly: '1,000',
-  discount: '15%',
-  value: '1,000,000',
+  monthly: 1000,
+  discount: 15,
+  value: 1500000,
   id: 3,
   total: 30,
-  term: 6,
+  term: 18,
 }];
