@@ -43,4 +43,3 @@ app.get('/getPropertyList', handlers.getProperties);
 app.listen(port, () => {
   console.log('app is listening on 8008');
 })
-;
