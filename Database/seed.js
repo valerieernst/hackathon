@@ -29,7 +29,10 @@ db.query('DROP TABLE investments;').catch((err) => console.error(err))
   'id SERIAL NOT NULL PRIMARY KEY, ' +
   'investor SERIAL NOT NULL REFERENCES users(id), ' +
   'property SERIAL NOT NULL REFERENCES properties(id), ' +
-  'value INT' +
+  'value INT, ' +
+  'return SMALLINT, ' +
+  'term SMALLINT, ' +
+  'monthly SMALLINT' +
 ');'))
 .then(() => console.log('the seed has been sown!'))
 .catch((err) => console.error(err));
